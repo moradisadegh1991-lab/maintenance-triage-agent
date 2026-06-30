@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 628px; background: #0d1117; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card { width: 1200px; height: 628px; background: #0d1117; display: flex; padding: 32px 40px; gap: 40px; }
+  .left-panel { width: 340px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+  .header-box { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px; }
+  .label { font-size: 10px; color: #6e7681; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .title-main { font-size: 18px; font-weight: 700; color: #f0f6fc; font-family: 'Segoe UI', sans-serif; }
+  .title-sub { font-size: 12px; color: #8b949e; margin-top: 4px; font-family: 'Segoe UI', sans-serif; }
+  .report-box { background: #161b22; border: 1px solid #30363d; border-left: 3px solid #58a6ff; border-radius: 10px; padding: 16px; flex: 1; }
+  .report-text { font-size: 12px; color: #c9d1d9; line-height: 1.6; font-family: 'Segoe UI', sans-serif; }
+  .stats-box { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 14px; display: flex; gap: 16px; }
+  .stat { flex: 1; text-align: center; }
+  .stat-num { font-size: 22px; font-weight: 700; color: #f0f6fc; }
+  .stat-label { font-size: 10px; color: #6e7681; margin-top: 2px; font-family: 'Segoe UI', sans-serif; }
+  .right-panel { flex: 1; display: flex; flex-direction: column; }
+  .terminal { background: #161b22; border: 1px solid #30363d; border-radius: 10px; flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .term-bar { background: #21262d; padding: 8px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #30363d; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .term-title { font-size: 11px; color: #6e7681; margin-left: 8px; font-family: 'Segoe UI', sans-serif; }
+  .term-body { padding: 16px 18px; flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 6px; }
+  .line { font-size: 12px; line-height: 1.5; }
+  .c-gray { color: #6e7681; }
+  .c-blue { color: #58a6ff; }
+  .c-green { color: #3fb950; }
+  .c-yellow { color: #d29922; }
+  .c-red { color: #f85149; }
+  .c-purple { color: #bc8cff; }
+  .c-white { color: #f0f6fc; }
+  .c-orange { color: #ffa657; }
+  .tag { display: inline-block; border-radius: 4px; padding: 0 6px; font-size: 10px; }
+  .tag-tool { background: rgba(188,140,255,0.15); border: 1px solid rgba(188,140,255,0.3); color: #bc8cff; }
+  .tag-result { background: rgba(63,185,80,0.12); border: 1px solid rgba(63,185,80,0.3); color: #3fb950; }
+  .tag-critical { background: rgba(248,81,73,0.15); border: 1px solid rgba(248,81,73,0.35); color: #f85149; }
+  .tag-wo { background: rgba(63,185,80,0.15); border: 1px solid rgba(63,185,80,0.4); color: #3fb950; font-weight: 700; }
+  .divider { border: none; border-top: 1px solid #21262d; margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="left-panel">
+    <div class="header-box">
+      <div class="label">Agent Execution</div>
+      <div class="title-main">Maintenance Triage</div>
+      <div class="title-sub">LangGraph ReAct · Claude Sonnet 4.6</div>
+    </div>
+    <div class="report-box">
+      <div class="label">🗣️ Operator Report</div>
+      <div class="report-text">
+        Pump <strong style="color:#58a6ff;">P-204</strong> seawater line showing<br>
+        <strong style="color:#f85149;">temperature 94°C</strong> and<br>
+        <strong style="color:#ffa657;">vibration 5.2 mm/s</strong>.<br><br>
+        Please check status and take<br>action if required.
+      </div>
+    </div>
+    <div class="stats-box">
+      <div class="stat"><div class="stat-num" style="color:#bc8cff;">4</div><div class="stat-label">Tool Calls</div></div>
+      <div class="stat"><div class="stat-num" style="color:#58a6ff;">3</div><div class="stat-label">LLM Rounds</div></div>
+      <div class="stat"><div class="stat-num" style="color:#f85149;">URGENT</div><div class="stat-label">Priority WO</div></div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="dot" style="background:#f85149;"></div>
+        <div class="dot" style="background:#d29922;"></div>
+        <div class="dot" style="background:#3fb950;"></div>
+        <div class="term-title">python maintenance_triage_agent.py</div>
+      </div>
+      <div class="term-body">
+        <div class="line"><span class="c-gray"># Round 1 ─────────────────────────────────────────────────────</span></div>
+        <div class="line"><span class="c-blue">🧠 llm_call</span> <span class="c-gray">→ AI decides: need equipment history first</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-tool">TOOL CALL</span><span class="c-purple">  get_equipment_history</span><span class="c-white">(equipment_id=</span><span class="c-yellow">"P-204"</span><span class="c-white">)</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-result">RESULT</span><span class="c-green">    MTBF=92d · MTTR=6h · last_failure=2026-03-11 · seawater seal leak</span></div>
+        <hr class="divider">
+        <div class="line"><span class="c-gray"># Round 2 ─────────────────────────────────────────────────────</span></div>
+        <div class="line"><span class="c-blue">🧠 llm_call</span> <span class="c-gray">→ AI decides: check both sensor thresholds</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-tool">TOOL CALL</span><span class="c-purple">  check_sensor_threshold</span><span class="c-white">(parameter=</span><span class="c-yellow">"temperature_c"</span><span class="c-white">, value=</span><span class="c-orange">94.0</span><span class="c-white">)</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-critical">CRITICAL</span><span class="c-red">   94°C exceeds limit 85°C → +10.6% over threshold ⚠️</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-tool">TOOL CALL</span><span class="c-purple">  check_sensor_threshold</span><span class="c-white">(parameter=</span><span class="c-yellow">"vibration_mm_s"</span><span class="c-white">, value=</span><span class="c-orange">5.2</span><span class="c-white">)</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-critical">CRITICAL</span><span class="c-red">   5.2 mm/s exceeds limit 4.5 mm/s → +15.6% over threshold ⚠️</span></div>
+        <hr class="divider">
+        <div class="line"><span class="c-gray"># Round 3 ─────────────────────────────────────────────────────</span></div>
+        <div class="line"><span class="c-blue">🧠 llm_call</span> <span class="c-gray">→ AI decides: 2 critical params + known seal history → URGENT WO</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-tool">TOOL CALL</span><span class="c-purple">  create_work_order</span><span class="c-white">(equipment_id=</span><span class="c-yellow">"P-204"</span><span class="c-white">, priority=</span><span class="c-red">"URGENT"</span><span class="c-white">, ...)</span></div>
+        <div class="line"><span class="c-gray">   </span><span class="tag tag-wo">✅ WO</span><span class="c-green">       WO-P-204-3847 registered · Priority: URGENT · Assign immediately</span></div>
+        <hr class="divider">
+        <div class="line"><span class="c-blue">🏁 END</span>  <span class="c-gray">→ Final summary written for maintenance supervisor · llm_calls=3</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

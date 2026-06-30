@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 628px; background: #0f172a; font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card { width: 1200px; height: 628px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); position: relative; display: flex; align-items: center; padding: 40px 60px; gap: 60px; }
+  .left { flex: 1; }
+  .badge { display: inline-block; background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.5); color: #a78bfa; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
+  h1 { font-size: 38px; font-weight: 800; color: #f1f5f9; line-height: 1.2; margin-bottom: 14px; }
+  h1 span { color: #818cf8; }
+  .sub { font-size: 16px; color: #94a3b8; margin-bottom: 30px; line-height: 1.5; }
+  .tools { display: flex; flex-direction: column; gap: 10px; }
+  .tool { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 16px; }
+  .tool-icon { font-size: 20px; width: 36px; text-align: center; }
+  .tool-text { color: #cbd5e1; font-size: 14px; }
+  .tool-text strong { color: #e2e8f0; font-weight: 600; }
+  .right { width: 480px; }
+  .flow { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px 24px; }
+  .flow-title { font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; font-weight: 600; }
+  .node { border-radius: 10px; padding: 10px 16px; margin-bottom: 6px; font-size: 13px; font-weight: 600; }
+  .node-start { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); color: #4ade80; text-align: center; }
+  .node-llm { background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.5); color: #a5b4fc; }
+  .node-cond { background: rgba(234,179,8,0.12); border: 1px solid rgba(234,179,8,0.4); color: #fde68a; text-align: center; font-size: 12px; }
+  .node-tool { background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: #d8b4fe; }
+  .node-end { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); color: #fca5a5; text-align: center; }
+  .arrow { text-align: center; color: #475569; font-size: 16px; margin: 2px 0; }
+  .loop-label { font-size: 10px; color: #a855f7; text-align: right; font-style: italic; margin-top: 2px; }
+  .footer { position: absolute; bottom: 24px; left: 60px; right: 60px; display: flex; justify-content: space-between; align-items: center; }
+  .author { color: #64748b; font-size: 13px; }
+  .tech-stack { display: flex; gap: 10px; }
+  .tech { background: rgba(255,255,255,0.06); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: #94a3b8; font-weight: 500; }
+  .accent { position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%); pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="accent"></div>
+  <div class="left">
+    <div class="badge">🤖 Agentic AI · Industrial Maintenance</div>
+    <h1>Maintenance Triage<br><span>Agent</span></h1>
+    <p class="sub">LangGraph ReAct agent that autonomously diagnoses<br>equipment failures at petrochemical plants</p>
+    <div class="tools">
+      <div class="tool"><div class="tool-icon">📋</div><div class="tool-text"><strong>get_equipment_history</strong> — MTBF / MTTR from CMMS</div></div>
+      <div class="tool"><div class="tool-icon">🌡️</div><div class="tool-text"><strong>check_sensor_threshold</strong> — temp, vibration, pressure (SI)</div></div>
+      <div class="tool"><div class="tool-icon">🔧</div><div class="tool-text"><strong>create_work_order</strong> — prioritized WO in CMMS</div></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="flow">
+      <div class="flow-title">ReAct Loop — LangGraph Graph API</div>
+      <div class="node node-start">▶ START</div>
+      <div class="arrow">↓</div>
+      <div class="node node-llm">🧠 llm_call &nbsp;·&nbsp; Claude Sonnet 4.6<br><span style="font-size:11px;font-weight:400;color:#818cf8;">decide which tools to invoke</span></div>
+      <div class="arrow">↓</div>
+      <div class="node node-cond">⬡ should_continue<br>tool_calls in last message?</div>
+      <div style="display:flex; gap:6px; margin: 4px 0;">
+        <div style="flex:1; border:1px solid rgba(168,85,247,0.3); border-radius:8px; padding:8px; text-align:center;">
+          <div style="color:#c084fc; font-size:11px; font-weight:700;">YES → tool_node</div>
+          <div class="node-tool" style="border-radius:6px;padding:6px;margin-top:4px;font-size:11px;">🔧 execute tools<br><span style="font-weight:400;color:#c4b5fd;">returns ToolMessage</span></div>
+          <div class="loop-label">↩ loops back to llm_call</div>
+        </div>
+        <div style="flex:1; border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:8px; text-align:center;">
+          <div style="color:#f87171; font-size:11px; font-weight:700;">NO → END</div>
+          <div class="node-end" style="border-radius:6px;padding:6px;margin-top:4px;font-size:11px;">🏁 final answer<br><span style="font-weight:400;color:#fca5a5;">supervisor summary</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="author">github.com/YOUR_USERNAME/maintenance-triage-agent</div>
+    <div class="tech-stack">
+      <div class="tech">LangGraph 1.0</div>
+      <div class="tech">Claude Sonnet 4.6</div>
+      <div class="tech">Python 3.10+</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

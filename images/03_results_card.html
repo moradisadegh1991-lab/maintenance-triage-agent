@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 628px; font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; }
+  .card { width: 1200px; height: 628px; background: #0f172a; display: flex; }
+  .left { width: 520px; background: linear-gradient(160deg, #1e1035 0%, #0f172a 100%); border-right: 1px solid rgba(255,255,255,0.07); padding: 44px 40px; display: flex; flex-direction: column; gap: 20px; }
+  .right { flex: 1; padding: 44px 44px; display: flex; flex-direction: column; gap: 18px; }
+  .pill { display: inline-block; background: rgba(248,81,73,0.18); border: 1px solid rgba(248,81,73,0.5); color: #f87171; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; width: fit-content; }
+  h2 { font-size: 32px; font-weight: 800; color: #f1f5f9; line-height: 1.2; }
+  h2 span { color: #818cf8; }
+  .eq-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 12px; padding: 18px 20px; }
+  .eq-id { font-size: 20px; font-weight: 700; color: #60a5fa; margin-bottom: 4px; }
+  .eq-name { font-size: 13px; color: #94a3b8; margin-bottom: 14px; }
+  .metrics { display: flex; gap: 12px; }
+  .metric { flex: 1; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; }
+  .m-val { font-size: 20px; font-weight: 700; }
+  .m-label { font-size: 10px; color: #64748b; margin-top: 2px; }
+  .history { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px 18px; }
+  .h-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .h-row:last-child { margin-bottom: 0; }
+  .h-key { font-size: 12px; color: #64748b; }
+  .h-val { font-size: 12px; color: #cbd5e1; font-weight: 600; }
+  .section-title { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
+  .threshold-row { background: rgba(255,255,255,0.03); border: 1px solid rgba(248,81,73,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; }
+  .t-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .t-param { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+  .t-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(248,81,73,0.2); border: 1px solid rgba(248,81,73,0.4); color: #f87171; }
+  .bar-bg { height: 7px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .t-footer { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; }
+  .wo-card { background: linear-gradient(135deg, rgba(63,185,80,0.1) 0%, rgba(34,197,94,0.05) 100%); border: 1px solid rgba(63,185,80,0.35); border-radius: 12px; padding: 18px 20px; }
+  .wo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .wo-title { font-size: 14px; font-weight: 700; color: #4ade80; }
+  .wo-urgent { font-size: 11px; font-weight: 800; padding: 3px 10px; background: rgba(248,81,73,0.2); border: 1px solid rgba(248,81,73,0.5); color: #f87171; border-radius: 4px; }
+  .wo-id { font-size: 24px; font-weight: 800; color: #f0f6fc; letter-spacing: 1px; margin-bottom: 6px; }
+  .wo-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+  .footer { margin-top: auto; font-size: 11px; color: #334155; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="left">
+    <div class="pill">⚠️ Critical Alert</div>
+    <h2>Equipment<br>Failure<br><span>Detected</span></h2>
+    <div class="eq-card">
+      <div class="eq-id">P-204</div>
+      <div class="eq-name">Seawater Cooling Pump — Line 4</div>
+      <div class="metrics">
+        <div class="metric"><div class="m-val" style="color:#f87171;">94°C</div><div class="m-label">Temperature</div></div>
+        <div class="metric"><div class="m-val" style="color:#fb923c;">5.2 mm/s</div><div class="m-label">Vibration</div></div>
+        <div class="metric"><div class="m-val" style="color:#60a5fa;">92d</div><div class="m-label">MTBF</div></div>
+      </div>
+    </div>
+    <div class="history">
+      <div class="section-title">CMMS History</div>
+      <div class="h-row"><div class="h-key">Last Failure</div><div class="h-val">2026-03-11</div></div>
+      <div class="h-row"><div class="h-key">Failure Mode</div><div class="h-val">Seawater Seal Leak</div></div>
+      <div class="h-row"><div class="h-key">MTTR</div><div class="h-val">6 hours</div></div>
+      <div class="h-row"><div class="h-key">Days Since Last Failure</div><div class="h-val" style="color:#f87171;">111 days (&gt; MTBF!)</div></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="section-title">Sensor Threshold Analysis</div>
+    <div class="threshold-row">
+      <div class="t-header"><span class="t-param">🌡️ Temperature</span><span class="t-badge">+10.6% OVER LIMIT</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:100%; background: linear-gradient(90deg, #22c55e 60%, #f97316 75%, #ef4444 100%);"></div></div>
+      <div class="t-footer"><span>0°C</span><span style="color:#f87171;">Limit: 85°C</span><span style="color:#f87171; font-weight:700;">Actual: 94°C</span></div>
+    </div>
+    <div class="threshold-row">
+      <div class="t-header"><span class="t-param">〰️ Vibration</span><span class="t-badge">+15.6% OVER LIMIT</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:100%; background: linear-gradient(90deg, #22c55e 55%, #f97316 70%, #ef4444 100%);"></div></div>
+      <div class="t-footer"><span>0 mm/s</span><span style="color:#f87171;">Limit: 4.5 mm/s</span><span style="color:#f87171; font-weight:700;">Actual: 5.2 mm/s</span></div>
+    </div>
+    <div class="wo-card">
+      <div class="wo-header">
+        <div class="wo-title">✅ Work Order Created Automatically</div>
+        <div class="wo-urgent">URGENT</div>
+      </div>
+      <div class="wo-id">WO-P-204-3847</div>
+      <div class="wo-desc">Two critical parameters exceeded + recurring seal failure pattern detected.<br>Immediate inspection and possible pump isolation recommended.</div>
+    </div>
+    <div class="footer">🤖 Powered by LangGraph ReAct · Claude Sonnet 4.6 · github.com/YOUR_USERNAME/maintenance-triage-agent</div>
+  </div>
+</div>
+</body>
+</html>
