@@ -132,6 +132,8 @@ maintenance-triage-agent/
 ├── maintenance_triage_agent.py   # Main agent (LangGraph ReAct)
 ├── test_api_key.py               # Standalone API key validator
 ├── requirements.txt
+├── requirements-dev.txt          # Dev tooling (SkillSpector security scanner)
+├── Makefile                      # install / install-dev / scan targets
 ├── .env.example
 ├── images/
 │   ├── 01_architecture.svg       # Agent architecture diagram
@@ -182,6 +184,31 @@ def get_spare_parts_availability(equipment_id: str, part_code: str) -> str:
 # Add to the tools list — graph auto-discovers it
 tools = [get_equipment_history, check_sensor_threshold, create_work_order, get_spare_parts_availability]
 ```
+
+---
+
+## 🛡️ Security Scanning with SkillSpector
+
+This project uses [SkillSpector](https://github.com/NVIDIA/SkillSpector) as a
+development tool to scan any external AI agent skill/tool before it's
+integrated into this codebase. It statically analyzes code for prompt
+injection, data exfiltration, supply-chain risks, and dangerous execution
+patterns, then reports a risk score.
+
+```bash
+# Install (requires Python >=3.12,<3.15; separate from requirements.txt)
+pip install -r requirements-dev.txt
+# or: make install-dev
+
+# Scan a directory or file before trusting it (static analysis, no API key needed)
+make scan SKILL=./path/to/skill
+# or directly:
+skillspector scan ./path/to/skill --no-llm
+```
+
+For the deeper LLM-based semantic pass, drop `--no-llm` and configure an LLM
+provider key (e.g. `OPENAI_API_KEY`) as described in the
+[SkillSpector docs](https://github.com/NVIDIA/SkillSpector).
 
 ---
 
